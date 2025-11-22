@@ -1,189 +1,400 @@
 <!DOCTYPE html>
-    <html lang="pt-BR">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>AL Nails Designers - Agendamento Web</title>
-        <!-- Carrega o Tailwind CSS para estilização fácil e moderna --><script src="https://cdn.tailwindcss.com"></script>
-        <style>
-            /* Estilização personalizada para o tema rosa/nail designer */
-            body {
-                font-family: 'Inter', sans-serif;
-                background-color: #fce7f3; /* Rosa bebê de fundo */
-            }
-            .container-card {
-                box-shadow: 0 10px 20px rgba(236, 72, 153, 0.3); /* Sombra rosa forte */
-            }
-            .scrollable {
-                max-height: 250px;
-                overflow-y: auto;
-            }
-            .gradient-bg {
-                background: linear-gradient(135deg, #ec4899 0%, #f9a8d4 100%); /* Gradiente rosa */
-            }
-        </style>
-    </head>
-    <body class="p-4 sm:p-8 flex justify-center items-start min-h-screen">
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AL Nails Designers - Agendamento Web</title>
+    <!-- Carrega o Tailwind CSS para estilização fácil e moderna -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Estilização personalizada para o tema rosa/nail designer */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #fce7f3; /* Rosa bebê de fundo */
+        }
+        .container-card {
+            box-shadow: 0 10px 20px rgba(236, 72, 153, 0.3); /* Sombra rosa forte */
+        }
+        .scrollable {
+            max-height: 250px;
+            overflow-y: auto;
+        }
+        .gradient-bg {
+            background: linear-gradient(135deg, #ec4899 0%, #f9a8d4 100%); /* Gradiente rosa */
+        }
+    </style>
+</head>
+<body class="p-4 sm:p-8 flex justify-center items-start min-h-screen">
 
-        <div class="w-full max-w-2xl bg-white rounded-xl container-card p-6 md:p-8">
-            <!-- Título --><header class="text-center mb-6 pb-4 border-b border-pink-100">
-                <h1 class="text-3xl font-extrabold gradient-bg text-transparent bg-clip-text">
-                    💅 AL Nails Designers 💅
-                </h1>
-                <p class="text-pink-600 mt-1 text-lg font-medium">Agende seu horário sem complicação!</p>
-            </header>
+    <div class="w-full max-w-2xl bg-white rounded-xl container-card p-6 md:p-8">
+        <!-- Título -->
+        <header class="text-center mb-6 pb-4 border-b border-pink-100">
+            <h1 class="text-3xl font-extrabold gradient-bg text-transparent bg-clip-text">
+                💅 AL Nails Designers 💅
+            </h1>
+            <!-- ATUALIZADO: Feedback em preto, número sem negrito e ícone do WhatsApp -->
+            <p class="mt-1 text-lg font-medium text-gray-800">
+                Feedback: 
+                <a href="https://wa.me/5562982097833" target="_blank" class="hover:underline text-gray-800 flex items-center justify-center space-x-2">
+                    <span>(62) 98209-7833</span>
+                    <!-- Ícone SVG do WhatsApp -->
+                    <svg class="w-5 h-5 text-green-500" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12.0007 2.00033C6.48671 2.00033 2.00071 6.48633 2.00071 12.0003C2.00071 14.1953 2.70671 16.2163 3.90071 17.8013L2.51871 21.4823L6.34171 20.2443C7.86971 21.2423 9.80571 21.9963 12.0007 21.9963C17.5147 21.9963 22.0007 17.5103 22.0007 12.0003C22.0007 6.48633 17.5147 2.00033 12.0007 2.00033ZM16.5977 15.3413C16.4067 15.6883 15.2287 16.2233 15.0067 16.3263C14.7837 16.4293 14.6127 16.4473 14.2657 16.2733C13.9177 16.0993 12.8717 15.7763 11.5307 15.1583C10.2787 14.5973 9.25571 13.6843 8.44171 12.5853C7.62771 11.4853 7.37571 10.3693 7.50271 9.25633C7.63071 8.14333 8.36571 7.21733 9.00671 6.88333C9.18071 6.79133 9.38971 6.74533 9.57871 6.75833C9.76771 6.77133 9.92471 6.80433 10.0987 6.84033C10.2727 6.87733 10.4577 6.91633 10.5907 7.23933C10.7427 7.56133 11.1967 8.78533 11.2337 9.07933C11.2697 9.37333 11.3327 9.72133 11.1597 10.0443C10.9867 10.3673 10.8717 10.4933 10.5987 10.7963C10.3257 11.0993 9.94071 11.7583 10.2527 12.3193C10.5647 12.8793 11.6917 14.4073 13.0457 15.0483C14.1527 15.5703 14.5427 15.6793 14.9327 15.7163C15.3227 15.7533 16.0907 15.4293 16.4407 14.9913C16.7907 14.5533 16.7907 14.2043 16.7147 14.0783C16.6387 13.9523 16.4957 13.9153 16.3227 13.9153C16.1487 13.9153 15.8957 13.9153 15.5487 14.2883Z"/>
+                    </svg>
+                </a>
+            </p>
+        </header>
 
-            <!-- Formulário de Agendamento --><section id="agendamento-form" class="space-y-4">
-                <div class="bg-pink-50 p-4 rounded-lg border border-pink-200">
-                    <h2 class="text-xl font-semibold text-pink-700 mb-4">Novo Agendamento</h2>
-                    
-                    <!-- Nome e Telefone --><div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
-                        <div class="flex-1">
-                            <label for="nome" class="block text-sm font-medium text-gray-700 mb-1">Nome Completo</label>
-                            <input type="text" id="nome" class="w-full p-3 border border-pink-300 rounded-lg focus:ring-pink-500 focus:border-pink-500 transition duration-150" placeholder="Digite o nome da cliente">
-                        </div>
-                        <div class="flex-1">
-                            <label for="telefone" class="block text-sm font-medium text-gray-700 mb-1">Telefone (DDD + Número)</label>
-                            <input type="tel" id="telefone" class="w-full p-3 border border-pink-300 rounded-lg focus:ring-pink-500 focus:border-pink-500 transition duration-150" placeholder="Ex: (81) 99999-9999">
-                        </div>
+        <!-- Formulário de Agendamento -->
+        <section id="agendamento-form" class="space-y-4">
+            <div class="bg-pink-50 p-4 rounded-lg border border-pink-200">
+                <!-- Título da Seção -->
+                <h2 class="text-xl font-semibold text-pink-700 mb-4">Agende o seu Horário sem Complicação</h2>
+                
+                <!-- Nome e Telefone -->
+                <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+                    <div class="flex-1">
+                        <label for="nome" class="block text-sm font-medium text-gray-700 mb-1">Nome Completo</label>
+                        <input type="text" id="nome" class="w-full p-3 border border-pink-300 rounded-lg focus:ring-pink-500 focus:border-pink-500 transition duration-150" placeholder="Digite o nome da cliente">
                     </div>
-                    
-                    <!-- Serviço --><div class="mt-4">
-                        <label for="servico" class="block text-sm font-medium text-gray-700 mb-1">Serviço Desejado</label>
-                        <select id="servico" class="w-full p-3 border border-pink-300 rounded-lg focus:ring-pink-500 focus:border-pink-500 transition duration-150 bg-white">
-                            <option value="">-- Selecione o Serviço --</option>
-                            <option value="Manicure Simples">Manicure Simples</option>
-                            <option value="Pedicure Completa">Pedicure Completa</option>
-                            <option value="Unhas em Gel">Unhas em Gel</option>
-                            <option value="Manutenção em Fibra">Manutenção em Fibra</option>
-                            <option value="Blindagem">Blindagem</option>
-                        </select>
+                    <div class="flex-1">
+                        <label for="telefone" class="block text-sm font-medium text-gray-700 mb-1">Telefone (DDD + Número)</label>
+                        <input type="tel" id="telefone" class="w-full p-3 border border-pink-300 rounded-lg focus:ring-pink-500 focus:border-pink-500 transition duration-150" placeholder="Ex: (81) 99999-9999">
                     </div>
-                    
-                    <!-- Data e Hora --><div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 mt-4">
-                        <div class="flex-1">
-                            <label for="data" class="block text-sm font-medium text-gray-700 mb-1">Data</label>
-                            <input type="date" id="data" class="w-full p-3 border border-pink-300 rounded-lg focus:ring-pink-500 focus:border-pink-500 transition duration-150">
-                        </div>
-                        <div class="flex-1">
-                            <label for="hora" class="block text-sm font-medium text-gray-700 mb-1">Hora</label>
-                            <input type="time" id="hora" class="w-full p-3 border border-pink-300 rounded-lg focus:ring-pink-500 focus:border-pink-500 transition duration-150" placeholder="Ex: 14:30">
-                        </div>
-                    </div>
-
-                    <!-- Mensagem de Status --><p id="status-message" class="mt-4 text-center text-sm font-medium h-5"></p>
-                    
-                    <!-- Botão de Agendar --><button onclick="agendarServico()" class="w-full gradient-bg text-white font-bold py-3 px-4 rounded-lg mt-6 hover:opacity-90 transition duration-200 shadow-md shadow-pink-300">
-                        CONFIRMAR AGENDAMENTO
-                    </button>
                 </div>
-            </section>
-
-            <!-- Lista de Agendamentos --><section class="mt-8">
-                <h2 class="text-xl font-semibold text-pink-700 mb-3">Agendamentos Confirmados</h2>
-                <div id="lista-agendamentos" class="scrollable bg-gray-50 border border-gray-200 rounded-lg p-4 space-y-3">
-                    <!-- Agendamentos serão inseridos aqui pelo JavaScript --><p id="placeholder" class="text-gray-500 italic">Nenhum agendamento realizado ainda.</p>
+                
+                <!-- Serviço -->
+                <div class="mt-4">
+                    <label for="servico" class="block text-sm font-medium text-gray-700 mb-1">Serviço Desejado</label>
+                    <select id="servico" class="w-full p-3 border border-pink-300 rounded-lg focus:ring-pink-500 focus:border-pink-500 transition duration-150 bg-white">
+                        <option value="">-- Selecione o Serviço --</option>
+                        <option value="Manicure Simples">Manicure Simples</option>
+                        <option value="Pedicure Completa">Pedicure Completa</option>
+                        <option value="Unhas em Gel">Unhas em Gel</option>
+                        <option value="Manutenção em Fibra">Manutenção em Fibra</option>
+                        <option value="Blindagem">Blindagem</option>
+                    </select>
                 </div>
-            </section>
+                
+                <!-- Data e Hora -->
+                <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 mt-4">
+                    <div class="flex-1">
+                        <label for="data" class="block text-sm font-medium text-gray-700 mb-1">Data</label>
+                        <input type="date" id="data" class="w-full p-3 border border-pink-300 rounded-lg focus:ring-pink-500 focus:border-pink-500 transition duration-150">
+                    </div>
+                    <div class="flex-1">
+                        <label for="hora" class="block text-sm font-medium text-gray-700 mb-1">Hora (Horário de 08:00h às 16:00h)</label>
+                        <!-- O atributo min/max no input type="time" ajuda a orientar o usuário, mas a validação principal está no JS -->
+                        <input type="time" id="hora" class="w-full p-3 border border-pink-300 rounded-lg focus:ring-pink-500 focus:border-pink-500 transition duration-150" placeholder="Ex: 14:30" min="08:00" max="16:00">
+                    </div>
+                </div>
 
+                <!-- Mensagem de Status -->
+                <p id="status-message" class="mt-4 text-center text-sm font-medium h-5"></p>
+                
+                <!-- Botão de Agendar -->
+                <button onclick="agendarServico()" class="w-full gradient-bg text-white font-bold py-3 px-4 rounded-lg mt-6 hover:opacity-90 transition duration-200 shadow-md shadow-pink-300">
+                    CONFIRMAR AGENDAMENTO
+                </button>
+            </div>
+        </section>
+
+        <!-- Lista de Agendamentos -->
+        <section class="mt-8">
+            <h2 class="text-xl font-semibold text-pink-700 mb-3">Agendamentos Confirmados</h2>
+            <div id="lista-agendamentos" class="scrollable bg-gray-50 border border-gray-200 rounded-lg p-4 space-y-3">
+                <!-- Agendamentos serão inseridos aqui pelo JavaScript -->
+                <p id="placeholder" class="text-gray-500 italic">Carregando agendamentos...</p>
+            </div>
+        </section>
+
+        <!-- Modal/Mensagem Customizada para Alerta de Agendamento Imediato (menos de 5 minutos) -->
+        <div id="immediate-alert-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+            <div class="bg-pink-100 border-2 border-red-500 rounded-lg p-6 shadow-xl max-w-sm w-full">
+                <h3 class="text-xl font-bold text-red-600 mb-2">🚨 ATENÇÃO PROPRIETÁRIA!</h3>
+                <p class="text-gray-800">
+                    Um agendamento foi marcado com **menos de 5 minutos** de antecedência. Verifique imediatamente para se preparar!
+                </p>
+                <button onclick="document.getElementById('immediate-alert-modal').classList.add('hidden')" class="w-full mt-4 bg-red-500 text-white font-bold py-2 rounded-lg hover:bg-red-600 transition">
+                    Entendi
+                </button>
+            </div>
         </div>
 
-        <script>
-            // Lógica de Agendamento em JavaScript
+    </div>
+
+    <script type="module">
+        // Importa módulos do Firebase
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, collection, addDoc, deleteDoc, onSnapshot, doc, query, setLogLevel } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        // Variáveis globais para Firebase e Dados
+        let app;
+        let db;
+        let auth;
+        let userId = null;
+        let isAuthReady = false;
+        let currentAppointments = []; // Armazena a lista atual de agendamentos para validação
+
+        // Constantes de Validação
+        const MIN_INTERVAL_MS = 2 * 60 * 60 * 1000; // 2 horas em milissegundos
+        const MIN_START_HOUR = 8; // 08:00
+        const MAX_START_HOUR = 16; // 16:00
+        const MIN_NOTICE_MS = 5 * 60 * 1000; // 5 minutos em milissegundos para alerta imediato
+
+        // Configurações e IDs fornecidos pelo ambiente
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+        const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : null;
+        const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
+
+        // Elementos DOM
+        const nomeInput = document.getElementById('nome');
+        const telefoneInput = document.getElementById('telefone');
+        const servicoInput = document.getElementById('servico');
+        const dataInput = document.getElementById('data');
+        const horaInput = document.getElementById('hora');
+        const statusMessage = document.getElementById('status-message');
+        const listaAgendamentos = document.getElementById('lista-agendamentos');
+        const placeholder = document.getElementById('placeholder');
+        const immediateAlertModal = document.getElementById('immediate-alert-modal');
+
+        // Referência da Coleção Pública de Agendamentos
+        const getAppointmentsCollectionRef = (dbInstance) => {
+            const collectionPath = `/artifacts/${appId}/public/data/appointments`;
+            return collection(dbInstance, collectionPath);
+        };
+
+        // Função para exibir mensagens de status
+        function exibirMensagem(mensagem, classes) {
+            statusMessage.textContent = mensagem;
+            statusMessage.className = `mt-4 text-center text-sm font-medium h-5 ${classes}`;
+            setTimeout(() => {
+                statusMessage.textContent = '';
+                statusMessage.className = 'mt-4 text-center text-sm font-medium h-5'; // Limpa classes
+            }, 4000);
+        }
+
+        // Função para renderizar os agendamentos na lista
+        function renderAgendamentos(agendamentos) {
+            listaAgendamentos.innerHTML = ''; // Limpa a lista
             
-            // Elementos DOM
-            const nomeInput = document.getElementById('nome');
-            const telefoneInput = document.getElementById('telefone'); // Novo
-            const servicoInput = document.getElementById('servico');   // Novo
-            const dataInput = document.getElementById('data');
-            const horaInput = document.getElementById('hora');
-            const statusMessage = document.getElementById('status-message');
-            const listaAgendamentos = document.getElementById('lista-agendamentos');
-            const placeholder = document.getElementById('placeholder');
-
-            // Inicializa a lista de agendamentos (usando localStorage para simular persistência)
-            let agendamentos = JSON.parse(localStorage.getItem('agendamentos_alnails')) || [];
-
-            function renderAgendamentos() {
-                listaAgendamentos.innerHTML = ''; // Limpa a lista
-                if (agendamentos.length === 0) {
-                    listaAgendamentos.appendChild(placeholder);
-                    placeholder.classList.remove('hidden');
-                    return;
-                }
-
-                placeholder.classList.add('hidden');
-                agendamentos.forEach((agendamento, index) => {
-                    const item = document.createElement('div');
-                    item.className = 'flex justify-between items-center bg-white p-3 rounded-md shadow-sm border border-pink-100';
-                    
-                    // Formata a data para dd/mm/aaaa
-                    const [ano, mes, dia] = agendamento.data.split('-');
-                    const dataFormatada = `${dia}/${mes}/${ano}`;
-                    
-                    item.innerHTML = `
-                        <div class="flex-1 min-w-0">
-                            <p class="text-gray-800 font-medium">
-                                <span class="text-pink-600 font-bold">${agendamento.servico}</span>
-                                <span class="text-gray-500 text-sm block">${agendamento.nome} | ${agendamento.telefone}</span>
-                            </p>
-                            <p class="text-xs text-gray-600 mt-1">
-                                Agendado para: ${dataFormatada} às ${agendamento.hora}
-                            </p>
-                        </div>
-                        <button onclick="removerAgendamento(${index})" class="text-red-500 hover:text-red-700 transition duration-150 text-sm ml-4 flex-shrink-0">
-                            &times; Remover
-                        </button>
-                    `;
-                    listaAgendamentos.appendChild(item);
-                });
+            if (!agendamentos || agendamentos.length === 0) {
+                placeholder.textContent = 'Nenhum agendamento realizado ainda.';
+                listaAgendamentos.appendChild(placeholder);
+                placeholder.classList.remove('hidden');
+                return;
             }
 
-            function removerAgendamento(index) {
-                agendamentos.splice(index, 1); // Remove o item
-                localStorage.setItem('agendamentos_alnails', JSON.stringify(agendamentos));
-                renderAgendamentos(); // Redesenha a lista
+            placeholder.classList.add('hidden');
+            
+            // Ordena localmente por data e hora (evitando a necessidade de índice no Firestore)
+            agendamentos.sort((a, b) => {
+                const dateA = new Date(`${a.data}T${a.hora}`);
+                const dateB = new Date(`${b.data}T${b.hora}`);
+                return dateA - dateB;
+            });
+
+            agendamentos.forEach(agendamento => {
+                const item = document.createElement('div');
+                item.className = 'flex justify-between items-center bg-white p-3 rounded-md shadow-sm border border-pink-100 transition duration-150 hover:bg-pink-50';
+                
+                // Formata a data para dd/mm/aaaa
+                const [ano, mes, dia] = agendamento.data.split('-');
+                const dataFormatada = `${dia}/${mes}/${ano}`;
+                
+                item.innerHTML = `
+                    <div class="flex-1 min-w-0">
+                        <p class="text-gray-800 font-medium">
+                            <span class="text-pink-600 font-bold">${agendamento.servico}</span>
+                            <span class="text-gray-500 text-sm block">${agendamento.nome} | ${agendamento.telefone}</span>
+                        </p>
+                        <p class="text-xs text-gray-600 mt-1">
+                            Agendado para: ${dataFormatada} às ${agendamento.hora}
+                        </p>
+                    </div>
+                    <button onclick="removerAgendamento('${agendamento.id}')" class="text-red-500 hover:text-red-700 transition duration-150 text-sm ml-4 flex-shrink-0">
+                        &times; Remover
+                    </button>
+                `;
+                listaAgendamentos.appendChild(item);
+            });
+        }
+
+        // Função para remover agendamento do Firestore
+        window.removerAgendamento = async function(docId) {
+            if (!isAuthReady) {
+                exibirMensagem('Aguarde a inicialização do sistema.', 'bg-yellow-100 text-yellow-800');
+                return;
+            }
+
+            try {
+                const docRef = doc(db, getAppointmentsCollectionRef(db).path, docId);
+                await deleteDoc(docRef);
                 exibirMensagem('Agendamento removido.', 'bg-yellow-100 text-yellow-800');
+            } catch (e) {
+                console.error("Erro ao remover documento: ", e);
+                exibirMensagem('❌ Erro ao remover agendamento.', 'bg-red-100 text-red-700');
+            }
+        }
+
+        // Função principal para agendar serviço no Firestore com validações
+        window.agendarServico = async function() {
+            if (!isAuthReady) {
+                exibirMensagem('Aguarde a inicialização do sistema de agendamento.', 'bg-yellow-100 text-yellow-800');
+                return;
             }
 
-            function exibirMensagem(mensagem, classes) {
-                statusMessage.textContent = mensagem;
-                statusMessage.className = `mt-4 text-center text-sm font-medium h-5 ${classes}`;
-                setTimeout(() => {
-                    statusMessage.textContent = '';
-                    statusMessage.className = 'mt-4 text-center text-sm font-medium h-5'; // Limpa classes
-                }, 4000);
+            const nome = nomeInput.value.trim();
+            const telefone = telefoneInput.value.trim();
+            const servico = servicoInput.value;
+            const data = dataInput.value;
+            const hora = horaInput.value.trim();
+
+            if (!nome || !telefone || !servico || !data || !hora) {
+                exibirMensagem('⚠️ Por favor, preencha todos os campos.', 'bg-red-100 text-red-700');
+                return;
             }
 
-            function agendarServico() {
-                const nome = nomeInput.value.trim();
-                const telefone = telefoneInput.value.trim(); 
-                const servico = servicoInput.value;          
-                const data = dataInput.value;
-                const hora = horaInput.value.trim();
+            const now = new Date();
+            const newAppointmentTime = new Date(`${data}T${hora}:00`);
+            
+            // 1. Validação de Data/Hora
+            if (isNaN(newAppointmentTime.getTime())) {
+                exibirMensagem('⚠️ Data ou hora inválida.', 'bg-red-100 text-red-700');
+                return;
+            }
 
-                if (!nome || !telefone || !servico || !data || !hora) {
-                    exibirMensagem('⚠️ Por favor, preencha todos os campos.', 'bg-red-100 text-red-700');
-                    return;
+            // Garante que o agendamento não seja feito para o passado
+            if (newAppointmentTime < now) {
+                exibirMensagem('⚠️ Não é possível agendar para o passado.', 'bg-red-100 text-red-700');
+                return;
+            }
+
+            // 2. Validação de Horário de Funcionamento (08:00h às 16:00h)
+            const appointmentHour = newAppointmentTime.getHours();
+            if (appointmentHour < MIN_START_HOUR || appointmentHour > MAX_START_HOUR) {
+                 exibirMensagem(`⚠️ Horário fora do expediente. Agende entre ${MIN_START_HOUR.toString().padStart(2, '0')}:00 e ${MAX_START_HOUR.toString().padStart(2, '0')}:00.`, 'bg-red-100 text-red-700');
+                return;
+            }
+
+            // 3. Validação de Conflito de Horário (Intervalo Mínimo de 2 Horas)
+            const conflictingAppointments = currentAppointments.filter(appt => {
+                if (appt.data !== data) {
+                    return false;
                 }
+                const existingTime = new Date(`${appt.data}T${appt.hora}:00`);
+                const timeDifferenceMs = Math.abs(newAppointmentTime.getTime() - existingTime.getTime());
+                
+                return timeDifferenceMs < MIN_INTERVAL_MS;
+            });
 
-                const novoAgendamento = { nome, telefone, servico, data, hora };
-                agendamentos.push(novoAgendamento);
-                localStorage.setItem('agendamentos_alnails', JSON.stringify(agendamentos));
+            if (conflictingAppointments.length > 0) {
+                const existingTime = conflictingAppointments[0].hora;
+                exibirMensagem(
+                    `❌ Conflito de horário! Já existe um agendamento próximo, às ${existingTime}. O intervalo mínimo entre serviços é de 2 horas.`, 
+                    'bg-red-100 text-red-700'
+                );
+                return;
+            }
 
-                // Limpa os campos
+
+            // 4. Checa Alerta Imediato (Agendamento antes de 5 minutos)
+            const timeUntilAppointmentMs = newAppointmentTime.getTime() - now.getTime();
+
+            if (timeUntilAppointmentMs > 0 && timeUntilAppointmentMs < MIN_NOTICE_MS) {
+                // Se for feito com menos de 5 minutos de aviso, mostra o modal
+                immediateAlertModal.classList.remove('hidden');
+            }
+
+
+            // 5. Agendamento no Firestore
+            const novoAgendamento = {
+                nome,
+                telefone,
+                servico,
+                data,
+                hora,
+                timestamp: new Date().toISOString(),
+                agendadoPor: userId
+            };
+
+            try {
+                await addDoc(getAppointmentsCollectionRef(db), novoAgendamento);
+
+                // Limpa os campos após sucesso
                 nomeInput.value = '';
                 telefoneInput.value = '';
                 servicoInput.value = '';
                 dataInput.value = '';
                 horaInput.value = '';
 
-                renderAgendamentos();
                 exibirMensagem('🎉 Agendamento realizado com sucesso!', 'bg-green-100 text-green-700');
+            } catch (e) {
+                console.error("Erro ao adicionar documento: ", e);
+                exibirMensagem('❌ Erro ao salvar agendamento.', 'bg-red-100 text-red-700');
             }
+        }
 
-            // Renderiza os agendamentos ao carregar
-            renderAgendamentos();
-        </script>
-    </body>
-    </html>
+        // Inicializa Firebase e ouve por agendamentos
+        async function initFirebaseAndLoadData() {
+            if (!firebaseConfig) {
+                console.error("Firebase config is missing.");
+                placeholder.textContent = 'Erro de inicialização: Configuração do Firebase ausente.';
+                return;
+            }
+            
+            setLogLevel('Debug');
+
+            try {
+                app = initializeApp(firebaseConfig);
+                db = getFirestore(app);
+                auth = getAuth(app);
+
+                // 1. Autenticação
+                if (initialAuthToken) {
+                    await signInWithCustomToken(auth, initialAuthToken);
+                } else {
+                    await signInAnonymously(auth);
+                }
+
+                onAuthStateChanged(auth, (user) => {
+                    isAuthReady = true;
+                    if (user) {
+                        userId = user.uid;
+                        console.log("Usuário autenticado. UID:", userId);
+                        
+                        // 2. Listener do Firestore (onSnapshot)
+                        const appointmentsRef = getAppointmentsCollectionRef(db);
+                        const q = query(appointmentsRef);
+
+                        onSnapshot(q, (snapshot) => {
+                            const agendamentos = [];
+                            snapshot.forEach((doc) => {
+                                agendamentos.push({ id: doc.id, ...doc.data() });
+                            });
+                            // Atualiza a lista global para uso na validação e renderiza
+                            currentAppointments = agendamentos; 
+                            renderAgendamentos(agendamentos);
+                        }, (error) => {
+                            console.error("Erro ao receber dados do Firestore:", error);
+                            placeholder.textContent = 'Erro ao carregar agendamentos.';
+                            exibirMensagem('❌ Erro de conexão com o banco de dados.', 'bg-red-100 text-red-700');
+                        });
+
+                    } else {
+                        console.warn("Nenhum usuário autenticado. O sistema pode operar, mas sem ID de rastreamento.");
+                    }
+                });
+
+            } catch (error) {
+                console.error("Erro fatal na inicialização do Firebase:", error);
+                placeholder.textContent = 'Erro fatal na inicialização do app.';
+                exibirMensagem('❌ Falha na inicialização do Firebase.', 'bg-red-100 text-red-700');
+            }
+        }
+
+        initFirebaseAndLoadData();
+    </script>
+</body>
+</html>
