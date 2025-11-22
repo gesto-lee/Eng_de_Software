@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+    <html lang="pt-BR">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>AL Nails Designers - Agendamento Web</title>
+        <!-- Carrega o Tailwind CSS para estilização fácil e moderna --><script src="https://cdn.tailwindcss.com"></script>
+        <style>
+            /* Estilização personalizada para o tema rosa/nail designer */
+            body {
+                font-family: 'Inter', sans-serif;
+                background-color: #fce7f3; /* Rosa bebê de fundo */
+            }
+            .container-card {
+                box-shadow: 0 10px 20px rgba(236, 72, 153, 0.3); /* Sombra rosa forte */
+            }
+            .scrollable {
+                max-height: 250px;
+                overflow-y: auto;
+            }
+            .gradient-bg {
+                background: linear-gradient(135deg, #ec4899 0%, #f9a8d4 100%); /* Gradiente rosa */
+            }
+        </style>
+    </head>
+    <body class="p-4 sm:p-8 flex justify-center items-start min-h-screen">
+
+        <div class="w-full max-w-2xl bg-white rounded-xl container-card p-6 md:p-8">
+            <!-- Título --><header class="text-center mb-6 pb-4 border-b border-pink-100">
+                <h1 class="text-3xl font-extrabold gradient-bg text-transparent bg-clip-text">
+                    💅 AL Nails Designers 💅
+                </h1>
+                <p class="text-pink-600 mt-1 text-lg font-medium">Agende seu horário sem complicação!</p>
+            </header>
+
+            <!-- Formulário de Agendamento --><section id="agendamento-form" class="space-y-4">
+                <div class="bg-pink-50 p-4 rounded-lg border border-pink-200">
+                    <h2 class="text-xl font-semibold text-pink-700 mb-4">Novo Agendamento</h2>
+                    
+                    <!-- Nome e Telefone --><div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+                        <div class="flex-1">
+                            <label for="nome" class="block text-sm font-medium text-gray-700 mb-1">Nome Completo</label>
+                            <input type="text" id="nome" class="w-full p-3 border border-pink-300 rounded-lg focus:ring-pink-500 focus:border-pink-500 transition duration-150" placeholder="Digite o nome da cliente">
+                        </div>
+                        <div class="flex-1">
+                            <label for="telefone" class="block text-sm font-medium text-gray-700 mb-1">Telefone (DDD + Número)</label>
+                            <input type="tel" id="telefone" class="w-full p-3 border border-pink-300 rounded-lg focus:ring-pink-500 focus:border-pink-500 transition duration-150" placeholder="Ex: (81) 99999-9999">
+                        </div>
+                    </div>
+                    
+                    <!-- Serviço --><div class="mt-4">
+                        <label for="servico" class="block text-sm font-medium text-gray-700 mb-1">Serviço Desejado</label>
+                        <select id="servico" class="w-full p-3 border border-pink-300 rounded-lg focus:ring-pink-500 focus:border-pink-500 transition duration-150 bg-white">
+                            <option value="">-- Selecione o Serviço --</option>
+                            <option value="Manicure Simples">Manicure Simples</option>
+                            <option value="Pedicure Completa">Pedicure Completa</option>
+                            <option value="Unhas em Gel">Unhas em Gel</option>
+                            <option value="Manutenção em Fibra">Manutenção em Fibra</option>
+                            <option value="Blindagem">Blindagem</option>
+                        </select>
+                    </div>
+                    
+                    <!-- Data e Hora --><div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 mt-4">
+                        <div class="flex-1">
+                            <label for="data" class="block text-sm font-medium text-gray-700 mb-1">Data</label>
+                            <input type="date" id="data" class="w-full p-3 border border-pink-300 rounded-lg focus:ring-pink-500 focus:border-pink-500 transition duration-150">
+                        </div>
+                        <div class="flex-1">
+                            <label for="hora" class="block text-sm font-medium text-gray-700 mb-1">Hora</label>
+                            <input type="time" id="hora" class="w-full p-3 border border-pink-300 rounded-lg focus:ring-pink-500 focus:border-pink-500 transition duration-150" placeholder="Ex: 14:30">
+                        </div>
+                    </div>
+
+                    <!-- Mensagem de Status --><p id="status-message" class="mt-4 text-center text-sm font-medium h-5"></p>
+                    
+                    <!-- Botão de Agendar --><button onclick="agendarServico()" class="w-full gradient-bg text-white font-bold py-3 px-4 rounded-lg mt-6 hover:opacity-90 transition duration-200 shadow-md shadow-pink-300">
+                        CONFIRMAR AGENDAMENTO
+                    </button>
+                </div>
+            </section>
+
+            <!-- Lista de Agendamentos --><section class="mt-8">
+                <h2 class="text-xl font-semibold text-pink-700 mb-3">Agendamentos Confirmados</h2>
+                <div id="lista-agendamentos" class="scrollable bg-gray-50 border border-gray-200 rounded-lg p-4 space-y-3">
+                    <!-- Agendamentos serão inseridos aqui pelo JavaScript --><p id="placeholder" class="text-gray-500 italic">Nenhum agendamento realizado ainda.</p>
+                </div>
+            </section>
+
+        </div>
+
+        <script>
+            // Lógica de Agendamento em JavaScript
+            
+            // Elementos DOM
+            const nomeInput = document.getElementById('nome');
+            const telefoneInput = document.getElementById('telefone'); // Novo
+            const servicoInput = document.getElementById('servico');   // Novo
+            const dataInput = document.getElementById('data');
+            const horaInput = document.getElementById('hora');
+            const statusMessage = document.getElementById('status-message');
+            const listaAgendamentos = document.getElementById('lista-agendamentos');
+            const placeholder = document.getElementById('placeholder');
+
+            // Inicializa a lista de agendamentos (usando localStorage para simular persistência)
+            let agendamentos = JSON.parse(localStorage.getItem('agendamentos_alnails')) || [];
+
+            function renderAgendamentos() {
+                listaAgendamentos.innerHTML = ''; // Limpa a lista
+                if (agendamentos.length === 0) {
+                    listaAgendamentos.appendChild(placeholder);
+                    placeholder.classList.remove('hidden');
+                    return;
+                }
+
+                placeholder.classList.add('hidden');
+                agendamentos.forEach((agendamento, index) => {
+                    const item = document.createElement('div');
+                    item.className = 'flex justify-between items-center bg-white p-3 rounded-md shadow-sm border border-pink-100';
+                    
+                    // Formata a data para dd/mm/aaaa
+                    const [ano, mes, dia] = agendamento.data.split('-');
+                    const dataFormatada = `${dia}/${mes}/${ano}`;
+                    
+                    item.innerHTML = `
+                        <div class="flex-1 min-w-0">
+                            <p class="text-gray-800 font-medium">
+                                <span class="text-pink-600 font-bold">${agendamento.servico}</span>
+                                <span class="text-gray-500 text-sm block">${agendamento.nome} | ${agendamento.telefone}</span>
+                            </p>
+                            <p class="text-xs text-gray-600 mt-1">
+                                Agendado para: ${dataFormatada} às ${agendamento.hora}
+                            </p>
+                        </div>
+                        <button onclick="removerAgendamento(${index})" class="text-red-500 hover:text-red-700 transition duration-150 text-sm ml-4 flex-shrink-0">
+                            &times; Remover
+                        </button>
+                    `;
+                    listaAgendamentos.appendChild(item);
+                });
+            }
+
+            function removerAgendamento(index) {
+                agendamentos.splice(index, 1); // Remove o item
+                localStorage.setItem('agendamentos_alnails', JSON.stringify(agendamentos));
+                renderAgendamentos(); // Redesenha a lista
+                exibirMensagem('Agendamento removido.', 'bg-yellow-100 text-yellow-800');
+            }
+
+            function exibirMensagem(mensagem, classes) {
+                statusMessage.textContent = mensagem;
+                statusMessage.className = `mt-4 text-center text-sm font-medium h-5 ${classes}`;
+                setTimeout(() => {
+                    statusMessage.textContent = '';
+                    statusMessage.className = 'mt-4 text-center text-sm font-medium h-5'; // Limpa classes
+                }, 4000);
+            }
+
+            function agendarServico() {
+                const nome = nomeInput.value.trim();
+                const telefone = telefoneInput.value.trim(); 
+                const servico = servicoInput.value;          
+                const data = dataInput.value;
+                const hora = horaInput.value.trim();
+
+                if (!nome || !telefone || !servico || !data || !hora) {
+                    exibirMensagem('⚠️ Por favor, preencha todos os campos.', 'bg-red-100 text-red-700');
+                    return;
+                }
+
+                const novoAgendamento = { nome, telefone, servico, data, hora };
+                agendamentos.push(novoAgendamento);
+                localStorage.setItem('agendamentos_alnails', JSON.stringify(agendamentos));
+
+                // Limpa os campos
+                nomeInput.value = '';
+                telefoneInput.value = '';
+                servicoInput.value = '';
+                dataInput.value = '';
+                horaInput.value = '';
+
+                renderAgendamentos();
+                exibirMensagem('🎉 Agendamento realizado com sucesso!', 'bg-green-100 text-green-700');
+            }
+
+            // Renderiza os agendamentos ao carregar
+            renderAgendamentos();
+        </script>
+    </body>
+    </html>
