@@ -22,7 +22,13 @@
         .gradient-bg {
             background: linear-gradient(135deg, #ec4899 0%, #f9a8d4 100%); /* Gradiente rosa */
         }
+        /* Estilo para garantir que o input de data e hora tenha a cor de fundo correta */
+        input[type="date"], input[type="time"] {
+            background-color: white;
+        }
     </style>
+    <!-- Script para Máscara de Telefone (vmask.js) -->
+    <script src="https://cdn.jsdelivr.net/npm/vmask@2.0.2/dist/vmask.min.js"></script>
 </head>
 <body class="p-4 sm:p-8 flex justify-center items-start min-h-screen">
 
@@ -32,10 +38,10 @@
             <h1 class="text-3xl font-extrabold gradient-bg text-transparent bg-clip-text">
                 💅 AL Nails Designers 💅
             </h1>
-            <!-- ATUALIZADO: Feedback em preto, número sem negrito e ícone do WhatsApp -->
+            <!-- Feedback em preto, número sem negrito e ícone do WhatsApp -->
             <p class="mt-1 text-lg font-medium text-gray-800">
                 Feedback: 
-                <a href="https://wa.me/5562982097833" target="_blank" class="hover:underline text-gray-800 flex items-center justify-center space-x-2">
+                <a href="https://wa.me/5562982097833" target="_blank" class="hover:underline text-gray-800 inline-flex items-center justify-center space-x-2">
                     <span>(62) 98209-7833</span>
                     <!-- Ícone SVG do WhatsApp -->
                     <svg class="w-5 h-5 text-green-500" viewBox="0 0 24 24" fill="currentColor">
@@ -59,7 +65,8 @@
                     </div>
                     <div class="flex-1">
                         <label for="telefone" class="block text-sm font-medium text-gray-700 mb-1">Telefone (DDD + Número)</label>
-                        <input type="tel" id="telefone" class="w-full p-3 border border-pink-300 rounded-lg focus:ring-pink-500 focus:border-pink-500 transition duration-150" placeholder="Ex: (81) 99999-9999">
+                        <!-- Adicionada a classe 'js-mask-tel' para máscara automática -->
+                        <input type="tel" id="telefone" class="w-full p-3 border border-pink-300 rounded-lg focus:ring-pink-500 focus:border-pink-500 transition duration-150 js-mask-tel" placeholder="Ex: (81) 99999-9999">
                     </div>
                 </div>
                 
@@ -161,6 +168,7 @@
 
         // Referência da Coleção Pública de Agendamentos
         const getAppointmentsCollectionRef = (dbInstance) => {
+            // Caminho para dados públicos: /artifacts/{appId}/public/data/appointments
             const collectionPath = `/artifacts/${appId}/public/data/appointments`;
             return collection(dbInstance, collectionPath);
         };
@@ -213,6 +221,7 @@
                             Agendado para: ${dataFormatada} às ${agendamento.hora}
                         </p>
                     </div>
+                    <!-- Botão de remover visível apenas para proprietários/admins (logicamente) ou qualquer um por simplicidade -->
                     <button onclick="removerAgendamento('${agendamento.id}')" class="text-red-500 hover:text-red-700 transition duration-150 text-sm ml-4 flex-shrink-0">
                         &times; Remover
                     </button>
@@ -229,6 +238,7 @@
             }
 
             try {
+                // A referência do documento deve usar o path completo
                 const docRef = doc(db, getAppointmentsCollectionRef(db).path, docId);
                 await deleteDoc(docRef);
                 exibirMensagem('Agendamento removido.', 'bg-yellow-100 text-yellow-800');
@@ -246,40 +256,48 @@
             }
 
             const nome = nomeInput.value.trim();
-            const telefone = telefoneInput.value.trim();
+            // Pega o valor sem a máscara para fins de validação e salvamento
+            const telefoneUnmasked = VMasker.toPattern(telefoneInput.value.trim(), '(99) 99999-9999', { strip: true });
             const servico = servicoInput.value;
             const data = dataInput.value;
             const hora = horaInput.value.trim();
 
-            if (!nome || !telefone || !servico || !data || !hora) {
-                exibirMensagem('⚠️ Por favor, preencha todos os campos.', 'bg-red-100 text-red-700');
+            if (!nome || telefoneUnmasked.length < 10 || !servico || !data || !hora) {
+                exibirMensagem('⚠️ Por favor, preencha todos os campos corretamente.', 'bg-red-100 text-red-700');
                 return;
             }
 
             const now = new Date();
+            // Cria a data/hora para o agendamento
             const newAppointmentTime = new Date(`${data}T${hora}:00`);
             
-            // 1. Validação de Data/Hora
+            // 1. Validação de Data/Hora e Passado
             if (isNaN(newAppointmentTime.getTime())) {
                 exibirMensagem('⚠️ Data ou hora inválida.', 'bg-red-100 text-red-700');
                 return;
             }
 
-            // Garante que o agendamento não seja feito para o passado
-            if (newAppointmentTime < now) {
+            // Garante que o agendamento não seja feito para o passado (com 1 minuto de tolerância)
+            if (newAppointmentTime.getTime() < now.getTime() - 60000) { 
                 exibirMensagem('⚠️ Não é possível agendar para o passado.', 'bg-red-100 text-red-700');
                 return;
             }
 
             // 2. Validação de Horário de Funcionamento (08:00h às 16:00h)
             const appointmentHour = newAppointmentTime.getHours();
-            if (appointmentHour < MIN_START_HOUR || appointmentHour > MAX_START_HOUR) {
+            const appointmentMinute = newAppointmentTime.getMinutes();
+            
+            // Permite o horário exato das 08:00 (MIN_START_HOUR:00) até 16:00 (MAX_START_HOUR:00)
+            if (appointmentHour < MIN_START_HOUR || 
+                (appointmentHour > MAX_START_HOUR) ||
+                (appointmentHour === MAX_START_HOUR && appointmentMinute > 0)) {
                  exibirMensagem(`⚠️ Horário fora do expediente. Agende entre ${MIN_START_HOUR.toString().padStart(2, '0')}:00 e ${MAX_START_HOUR.toString().padStart(2, '0')}:00.`, 'bg-red-100 text-red-700');
                 return;
             }
 
             // 3. Validação de Conflito de Horário (Intervalo Mínimo de 2 Horas)
             const conflictingAppointments = currentAppointments.filter(appt => {
+                // Checa se é o mesmo dia
                 if (appt.data !== data) {
                     return false;
                 }
@@ -302,8 +320,8 @@
             // 4. Checa Alerta Imediato (Agendamento antes de 5 minutos)
             const timeUntilAppointmentMs = newAppointmentTime.getTime() - now.getTime();
 
+            // Apenas mostra o modal se o tempo restante for positivo (não está no passado) e menor que 5 minutos
             if (timeUntilAppointmentMs > 0 && timeUntilAppointmentMs < MIN_NOTICE_MS) {
-                // Se for feito com menos de 5 minutos de aviso, mostra o modal
                 immediateAlertModal.classList.remove('hidden');
             }
 
@@ -311,20 +329,21 @@
             // 5. Agendamento no Firestore
             const novoAgendamento = {
                 nome,
-                telefone,
+                // Salva o telefone no formato mascarado para visualização fácil
+                telefone: telefoneInput.value.trim(), 
                 servico,
                 data,
                 hora,
                 timestamp: new Date().toISOString(),
-                agendadoPor: userId
+                agendadoPor: userId // Id do usuário que agendou (para rastreamento interno)
             };
 
             try {
                 await addDoc(getAppointmentsCollectionRef(db), novoAgendamento);
 
-                // Limpa os campos após sucesso
+                // Limpa os campos após sucesso (mantendo a máscara no telefone para a próxima entrada)
                 nomeInput.value = '';
-                telefoneInput.value = '';
+                telefoneInput.value = ''; // Limpa, a máscara é aplicada no próximo foco
                 servicoInput.value = '';
                 dataInput.value = '';
                 horaInput.value = '';
@@ -332,9 +351,18 @@
                 exibirMensagem('🎉 Agendamento realizado com sucesso!', 'bg-green-100 text-green-700');
             } catch (e) {
                 console.error("Erro ao adicionar documento: ", e);
-                exibirMensagem('❌ Erro ao salvar agendamento.', 'bg-red-100 text-red-700');
+                exibirMensagem('❌ Erro ao salvar agendamento. Verifique o console.', 'bg-red-100 text-red-700');
             }
         }
+
+        // Função para aplicar a máscara no campo de telefone após a DOM carregar
+        document.addEventListener('DOMContentLoaded', () => {
+            const telInput = document.querySelector('.js-mask-tel');
+            if (telInput) {
+                VMasker(telInput).maskPattern('(99) 99999-9999');
+            }
+        });
+
 
         // Inicializa Firebase e ouve por agendamentos
         async function initFirebaseAndLoadData() {
@@ -344,7 +372,7 @@
                 return;
             }
             
-            setLogLevel('Debug');
+            setLogLevel('Debug'); // Habilita logs para depuração
 
             try {
                 app = initializeApp(firebaseConfig);
@@ -368,6 +396,7 @@
                         const appointmentsRef = getAppointmentsCollectionRef(db);
                         const q = query(appointmentsRef);
 
+                        // Ouve as mudanças em tempo real
                         onSnapshot(q, (snapshot) => {
                             const agendamentos = [];
                             snapshot.forEach((doc) => {
@@ -384,6 +413,9 @@
 
                     } else {
                         console.warn("Nenhum usuário autenticado. O sistema pode operar, mas sem ID de rastreamento.");
+                        // Mesmo sem ID, o onSnapshot deve ser iniciado (para o caso de signInAnonymously falhar/expirar)
+                        // A lógica de onSnapshot já está dentro do bloco `if (user)`, mas como signInAnonymously
+                        // quase sempre gera um user, isso é mais uma precaução.
                     }
                 });
 
